@@ -1,5 +1,3 @@
-'use strict';
-
 Plugin.registerMinifier({
   extensions: ['js'],
   archMatching: 'web'
