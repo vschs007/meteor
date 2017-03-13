@@ -9,7 +9,7 @@ Plugin.registerMinifier({
 function meteorBabelMinifier () {};
 
 meteorBabelMinifier.prototype.processFilesForBundle = function(files, options) {
-  let mode = options.minifyMode;
+  var mode = options.minifyMode;
 
   // don't minify anything for development
   if (mode === 'development') {
