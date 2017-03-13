@@ -9,7 +9,6 @@ Package.registerBuildPlugin({
   name: "minifyStdJS",
   use: [
     'minifier-js@2.0.0',
-    'ecmascript@0.6.3',
   ],
   sources: [
     'plugin/minify-js.js',
