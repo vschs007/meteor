@@ -1,5 +1,4 @@
 @echo off
-
 SETLOCAL
 rem only if we are running from a checkout
 IF EXIST "%~dp0\.git" (
@@ -10,7 +9,6 @@ IF EXIST "%~dp0\.git" (
     echo "Please install 7z.exe (7-Zip) and put it into your PATH"
     exit /b 1
   )
-
   rem if dev_bundle is not present, get it
   IF NOT EXIST "%~dp0\dev_bundle" (
     REM need `< con` so that we can run this file from Node
@@ -20,11 +18,8 @@ IF EXIST "%~dp0\.git" (
       echo An error occurred while obtaining the dev_bundle.  Please try again.
       exit /b 1
     )
-  )
-
   rem if dev_bundle is the wrong version, remove it and get a new one
   PowerShell.exe -executionpolicy ByPass -file "%~dp0\scripts\windows\check-dev-bundle.ps1" < con
-
   IF errorlevel 1 (
     rmdir /s /q "%~dp0\dev_bundle"
     IF EXIST "%~dp0\dev_bundle" (
@@ -37,17 +32,12 @@ IF EXIST "%~dp0\.git" (
       exit /b 1
     )
   )
-
   rem Only set this when we're in a checkout. When running from a release,
   rem this is correctly set in the top-level `meteor.bat` file
   SET METEOR_INSTALLATION=%~dp0
 )
-
 SET NODE_PATH=%~dp0\dev_bundle\lib\node_modules
 SET BABEL_CACHE_DIR=%~dp0\.babel-cache
-
 "%~dp0\dev_bundle\bin\node.exe" %TOOL_NODE_FLAGS% "%~dp0\tools\index.js" %*
 ENDLOCAL
-
 EXIT /b %ERRORLEVEL%
-
